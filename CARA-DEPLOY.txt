@@ -1,0 +1,121 @@
+========================================
+CARA DEPLOY BOT KE VPS - PALING MUDAH
+========================================
+
+VPS INFO:
+IP: 103.181.182.206
+User: root
+Password: K@artikasari13.
+
+========================================
+LANGKAH 1: DOWNLOAD WINSCP
+========================================
+
+1. Download WinSCP: https://winscp.net/eng/download.php
+2. Install WinSCP
+
+========================================
+LANGKAH 2: KONEKSI KE VPS
+========================================
+
+1. Buka WinSCP
+2. Klik "New Site"
+3. Isi:
+   - File protocol: SFTP
+   - Host name: 103.181.182.206
+   - Port number: 22
+   - User name: root
+   - Password: K@artikasari13.
+4. Klik "Login"
+5. Klik "Yes" jika ada warning
+
+========================================
+LANGKAH 3: SETUP VPS (PERTAMA KALI)
+========================================
+
+Di WinSCP, klik menu "Commands" > "Open Terminal" atau tekan Ctrl+T
+
+Copy-paste command ini SATU PER SATU:
+
+# Install Node.js
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+apt install -y nodejs
+
+# Install PM2
+npm install -g pm2
+
+# Install dependencies
+apt update
+apt install -y chromium-browser chromium-codecs-ffmpeg gconf-service libasound2 libatk1.0-0 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libnss3 wget
+
+# Buat folder
+mkdir -p /root/whatsapp-gemini-bot
+
+========================================
+LANGKAH 4: UPLOAD FILE
+========================================
+
+Di WinSCP:
+1. Panel kanan (VPS): navigasi ke /root/whatsapp-gemini-bot
+2. Panel kiri (komputer): navigasi ke folder project ini
+3. Drag & drop file-file ini ke panel kanan:
+   - index.js
+   - package.json
+   - .env
+   - scan-qr.js
+   - ecosystem.config.cjs
+
+========================================
+LANGKAH 5: INSTALL & JALANKAN BOT
+========================================
+
+Di terminal WinSCP (Ctrl+T), jalankan:
+
+cd /root/whatsapp-gemini-bot
+npm install
+pm2 start ecosystem.config.cjs
+pm2 logs whatsapp-bot
+
+========================================
+LANGKAH 6: SCAN QR CODE
+========================================
+
+QR code akan muncul di terminal.
+
+Cara scan:
+1. Buka WhatsApp di HP
+2. Menu (⋮) > Perangkat Tertaut
+3. Tautkan Perangkat
+4. Scan QR code di terminal
+
+Jika QR tidak jelas, jalankan:
+node scan-qr.js
+
+Lalu download file qr.png dengan WinSCP dan scan.
+
+========================================
+LANGKAH 7: SETUP AUTO-START
+========================================
+
+Di terminal, jalankan:
+
+pm2 startup
+pm2 save
+
+========================================
+SELESAI! 🎉
+========================================
+
+Bot sudah jalan 24/7 di VPS!
+
+COMMAND BERGUNA:
+- Lihat status: pm2 status
+- Lihat log: pm2 logs whatsapp-bot
+- Restart bot: pm2 restart whatsapp-bot
+- Stop bot: pm2 stop whatsapp-bot
+
+TROUBLESHOOTING:
+- Bot error: pm2 logs whatsapp-bot --lines 200
+- Scan ulang: rm -rf .wwebjs_auth && pm2 restart whatsapp-bot
+
+========================================

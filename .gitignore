@@ -1,0 +1,10 @@
+node_modules/
+.env
+.wwebjs_auth/
+.wwebjs_cache/
+qr.png
+logs/
+*.log
+.md
+.bat
+whatsapp-session-backup.tar.gz

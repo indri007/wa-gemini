@@ -1,0 +1,89 @@
+========================================
+COMMAND UNTUK VPS - COPY SATU PER SATU
+========================================
+
+Koneksi ke VPS dulu:
+ssh root@103.181.182.206
+Password: K@artikasari13.
+
+Setelah masuk VPS, jalankan command ini SATU PER SATU:
+
+========================================
+1. INSTALL NODE.JS
+========================================
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+
+Tunggu sampai selesai, lalu:
+
+apt install -y nodejs
+
+Cek versi:
+
+node --version
+npm --version
+
+========================================
+2. INSTALL PM2
+========================================
+npm install -g pm2
+
+========================================
+3. INSTALL CHROMIUM DEPENDENCIES
+========================================
+apt update
+
+apt install -y chromium-browser chromium-codecs-ffmpeg
+
+Atau install lengkap:
+
+apt install -y gconf-service libasound2 libatk1.0-0 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libnss3 wget
+
+========================================
+4. BUAT FOLDER PROJECT
+========================================
+mkdir -p /root/whatsapp-gemini-bot
+cd /root/whatsapp-gemini-bot
+
+========================================
+5. UPLOAD FILE
+========================================
+Sekarang upload file dengan WinSCP atau jalankan di CMD Windows:
+
+scp index.js package.json .env scan-qr.js ecosystem.config.cjs root@103.181.182.206:/root/whatsapp-gemini-bot/
+
+Password: K@artikasari13.
+
+========================================
+6. INSTALL DEPENDENCIES (DI VPS)
+========================================
+cd /root/whatsapp-gemini-bot
+npm install
+
+========================================
+7. JALANKAN BOT
+========================================
+pm2 start ecosystem.config.cjs
+
+========================================
+8. LIHAT LOG & QR CODE
+========================================
+pm2 logs whatsapp-bot
+
+Scan QR code yang muncul dengan WhatsApp.
+
+========================================
+9. SETUP AUTO-START
+========================================
+pm2 startup
+pm2 save
+
+========================================
+SELESAI!
+========================================
+
+Command berguna:
+- pm2 status
+- pm2 logs whatsapp-bot
+- pm2 restart whatsapp-bot
+- pm2 stop whatsapp-bot
+- pm2 monit

@@ -1,0 +1,88 @@
+========================================
+JALANKAN BOT DI VPS
+========================================
+
+Pastikan Anda sudah SSH ke VPS:
+ssh root@103.181.182.206
+Password: K@artikasari13.
+
+========================================
+JALANKAN COMMAND INI SATU PER SATU:
+========================================
+
+1. Masuk ke folder project:
+
+cd /root/whatsapp-gemini-bot
+
+
+2. Install dependencies (tunggu 2-5 menit):
+
+npm install
+
+
+3. Jalankan bot dengan PM2:
+
+pm2 start ecosystem.config.cjs
+
+
+4. Lihat log dan QR code:
+
+pm2 logs whatsapp-bot
+
+
+5. Setelah scan QR, tekan Ctrl+C untuk keluar dari log
+
+6. Setup auto-start:
+
+pm2 startup
+
+
+7. Copy command yang muncul dan jalankan (biasanya seperti ini):
+
+systemctl enable pm2-root
+
+
+8. Save konfigurasi PM2:
+
+pm2 save
+
+
+========================================
+COMMAND BERGUNA:
+========================================
+
+Lihat status bot:
+pm2 status
+
+Lihat log:
+pm2 logs whatsapp-bot
+
+Restart bot:
+pm2 restart whatsapp-bot
+
+Stop bot:
+pm2 stop whatsapp-bot
+
+Hapus bot dari PM2:
+pm2 delete whatsapp-bot
+
+Monitor real-time:
+pm2 monit
+
+========================================
+TROUBLESHOOTING:
+========================================
+
+Jika bot error, lihat log lengkap:
+pm2 logs whatsapp-bot --lines 200
+
+Jika perlu scan QR ulang:
+rm -rf .wwebjs_auth
+pm2 restart whatsapp-bot
+pm2 logs whatsapp-bot
+
+Jika npm install error:
+npm cache clean --force
+npm install
+
+========================================
