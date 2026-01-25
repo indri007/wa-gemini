@@ -22,10 +22,10 @@ LANGKAH 2: KONEKSI KE VPS
 2. Klik "New Site"
 3. Isi:
    - File protocol: SFTP
-   - Host name: 103.181.182.206
+   - Host name: 103.18
    - Port number: 22
-   - User name: root
-   - Password: K@artikasari13.
+   - User name: 
+   - Password: .
 4. Klik "Login"
 5. Klik "Yes" jika ada warning
 

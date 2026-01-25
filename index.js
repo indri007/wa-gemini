@@ -34,16 +34,15 @@ client.on('ready', () => {
 // Event: Menerima pesan
 client.on('message', async (message) => {
     try {
-        // Abaikan pesan dari grup (opsional)
-        const chat = await message.getChat();
-        if (chat.isGroup) {
-            return; // Hapus baris ini jika ingin bot aktif di grup
+        // Abaikan pesan dari grup (opsional) - Check ID ending with @g.us
+        if (message.from === 'status@broadcast' || message.from.includes('@g.us')) {
+            return;
         }
 
         console.log(`📩 Pesan dari ${message.from}: ${message.body}`);
 
-        // Kirim indikator "sedang mengetik..."
-        chat.sendStateTyping();
+        // Kirim indikator "sedang mengetik..." (Non-aktifkan untuk menghindari crash)
+        // chat.sendStateTyping();
 
         // Kirim pesan ke Gemini AI
         const result = await model.generateContent(message.body);
@@ -51,7 +50,8 @@ client.on('message', async (message) => {
         const text = response.text();
 
         // Kirim balasan
-        await message.reply(text);
+        // await message.reply(text);
+        await client.sendMessage(message.from, text, { sendSeen: false });
         console.log(`✅ Balasan terkirim: ${text.substring(0, 50)}...`);
 
     } catch (error) {
