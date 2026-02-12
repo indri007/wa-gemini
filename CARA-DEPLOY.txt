@@ -3,9 +3,9 @@ CARA DEPLOY BOT KE VPS - PALING MUDAH
 ========================================
 
 VPS INFO:
-IP: 103.181.182.206
+IP: 242.181.128.126
 User: root
-Password: K@artikasari13.
+Password: K@ikasari3.
 
 ========================================
 LANGKAH 1: DOWNLOAD WINSCP

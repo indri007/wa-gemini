@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'whatsapp-bot',
+    name: 'wa-gemini',
     script: 'index.js',
     instances: 1,
     autorestart: true,
